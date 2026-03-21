@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "GaelMind",
+  "version": "0.1.0",
+  "description": "AI Irish learning assistant",
+  "permissions": ["activeTab", "sidePanel", "scripting", "tabs"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {
+    "default_title": "GaelMind"
+  }
+}

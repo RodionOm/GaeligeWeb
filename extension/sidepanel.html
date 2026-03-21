@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GaelMind</title>
+  <link rel="stylesheet" href="sidepanel.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div class="hero-badge">Gaeilge + AI</div>
+      <h1>GaelMind</h1>
+      <p class="hero-subtitle">
+        Turn any webpage into an Irish learning experience.
+      </p>
+      <button id="analyzeBtn" class="primary-btn">Analyze this page</button>
+      <div id="status" class="status-text"></div>
+    </header>
+
+    <main class="content">
+
+      <!-- STEP 1 -->
+      <section class="panel-section">
+        <h2>Choose Language</h2>
+        <div class="choice-grid">
+          <button class="choice-btn" data-lang="english">English</button>
+          <button class="choice-btn" data-lang="irish">Gaeilge</button>
+        </div>
+      </section>
+
+      <!-- STEP 2 -->
+      <section class="panel-section">
+        <h2>Choose Reading Mode</h2>
+        <div class="choice-grid">
+          <button class="choice-btn" data-mode="quick">Quick Read</button>
+          <button class="choice-btn" data-mode="smart">Smart Summary</button>
+          <button class="choice-btn" data-mode="deep">Deep Dive</button>
+        </div>
+        <button id="backToLanguageBtn" class="secondary-btn step-btn">← Back</button>
+      </section>
+
+      <!-- STEP 3 -->
+      <section class="panel-section">
+        <h2 id="resultTitle">Summary</h2>
+        <div id="finalSummary" class="summary-card"></div>
+
+        <div class="action-stack">
+          <button id="backToModeBtn" class="secondary-btn step-btn">← Back</button>
+          <button id="learnBtn" class="primary-btn step-btn">Learn from this page</button>
+          <button id="toQuizBtn" class="primary-btn step-btn">Take Quiz</button>
+        </div>
+      </section>
+
+      <!-- STEP 4 -->
+      <section class="panel-section">
+        <h2>Learning Mode</h2>
+        <div id="learningContent" class="card-list"></div>
+        <button id="backToSummaryFromLearningBtn" class="secondary-btn step-btn">← Back to Summary</button>
+      </section>
+
+      <!-- STEP 5 -->
+      <section class="panel-section">
+        <h2>Ceistneoir</h2>
+        <div id="quizList" class="card-list"></div>
+        <button id="backToSummaryBtn" class="secondary-btn step-btn">← Back to Summary</button>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>

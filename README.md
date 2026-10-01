@@ -26,3 +26,19 @@ a wall of Irish.
 script and the side panel.
 
 ## Structure
+extension/
+manifest.json Chrome extension manifest (MV3)
+background.js service worker
+content.js reads the page, selects and replaces words
+sidepanel.html quiz UI
+sidepanel.js quiz logic
+sidepanel.css
+server/ backend serving the translations
+
+## What I'd do differently
+
+Word selection was the interesting problem and the one we had least time for —
+it picks words by simple heuristics rather than by how common or useful they
+actually are in Irish. With a frequency list and some notion of what the user
+already knows, the same extension would be a real learning tool rather than
+a demo. Everything else was built to survive a weekend, not a user.

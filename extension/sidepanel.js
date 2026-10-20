@@ -19,6 +19,18 @@ function speakText(text, lang = "ga-IE") {
   window.speechSynthesis.speak(utterance);
 }
 
+// Everything the AI returns comes from text on a third-party web page, so it is
+// escaped before it goes into innerHTML. Otherwise a page could inject HTML or
+// script into the extension's side panel through the model's answer.
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
 function showStatus(text, isError = false) {
   statusEl.textContent = text;
   statusEl.classList.toggle("error", isError);
@@ -62,7 +74,7 @@ function formatSummaryText(text) {
     .split(/\n+/)
     .map(part => part.trim())
     .filter(Boolean)
-    .map(part => `<p>${part}</p>`)
+    .map(part => `<p>${escapeHtml(part)}</p>`)
     .join("");
 }
 
@@ -99,11 +111,11 @@ function renderLearning() {
       <div class="vocab-item">
         <div class="vocab-top-line">
           <span class="vocab-number">${index + 1}</span>
-          <strong>${item.irish}</strong>
-          ${ttsAvailable ? `<button class="tts-btn" data-text="${item.irish}" data-lang="ga-IE">🔊</button>` : ""}
+          <strong>${escapeHtml(item.irish)}</strong>
+          ${ttsAvailable ? `<button class="tts-btn" data-text="${escapeHtml(item.irish)}" data-lang="ga-IE">🔊</button>` : ""}
         </div>
-        <div class="vocab-translation">${item.english}</div>
-        <em>${item.example}</em>
+        <div class="vocab-translation">${escapeHtml(item.english)}</div>
+        <em>${escapeHtml(item.example)}</em>
       </div>
     `).join("")}
   `;
@@ -136,11 +148,11 @@ function renderQuizQuestion() {
       </div>
 
       <div class="quiz-question">
-        ${q.question}
+        ${escapeHtml(q.question)}
       </div>
 
       <div class="quiz-options">
-        ${q.options.map(opt => `<button class="quiz-option">${opt}</button>`).join("")}
+        ${q.options.map(opt => `<button class="quiz-option">${escapeHtml(opt)}</button>`).join("")}
       </div>
     </div>
   `;
@@ -312,7 +324,7 @@ analyzeBtn.addEventListener("click", async () => {
       quizListEl.innerHTML = `<div class="empty-state">Quiz will appear after analysis.</div>`;
 
       showStep(0);
-      showStatus("Done.");
+      showStatus(result._demo ? "Demo mode: saved example response, not a live AI call." : "Done.");
       analyzeBtn.disabled = false;
     } catch (error) {
       console.error("Analyze request failed", error);
@@ -380,4 +392,5 @@ document.addEventListener("click", (e) => {
 // ------------------ INIT ------------------
 
 setEmptyState();
+showStep(-1); // hide all steps until a page has been analysed
 showStep(0);

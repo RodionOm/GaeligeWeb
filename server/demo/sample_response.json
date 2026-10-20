@@ -1,0 +1,31 @@
+{
+  "english_summary": {
+    "quick": "Hand-written example response used by DEMO_MODE, not real model output. Athlone is a town in the middle of Ireland, built where the River Shannon could be crossed. Its castle guarded the bridge for centuries, and Sean's Bar in the town claims to be the oldest pub in Ireland.",
+    "smart": "Hand-written example response used by DEMO_MODE, not real model output.\nAthlone sits on the River Shannon, almost exactly in the centre of Ireland. The town grew around a crossing point of the river, and control of that crossing made it important in Irish history.\nAthlone Castle stands beside the bridge and was built to defend it. Today it is a visitor centre.\nThe town is also known for Sean's Bar, which claims to be the oldest pub in Ireland, and for its university, TUS.",
+    "deep": "Hand-written example response used by DEMO_MODE, not real model output.\nAthlone is a town on the River Shannon in the centre of Ireland. For most of its history the town mattered because of one thing: it was a place where the Shannon, the longest river in Ireland, could be crossed.\nWhoever held the crossing controlled movement between the east and the west of the country, which is why Athlone Castle was built right beside the bridge. The castle was rebuilt and attacked many times, and the sieges of Athlone are well-known events in Irish history.\nToday the castle is a visitor centre. The town is also known for Sean's Bar, which claims to be the oldest pub in Ireland, and for its university, the Technological University of the Shannon."
+  },
+  "irish_summary": {
+    "quick": "Is sampla é seo a scríobhadh de láimh don mhód taispeána. Is baile é Baile Átha Luain i lár na hÉireann. Tá an tSionainn ag sileadh tríd an mbaile.",
+    "smart": "Is sampla é seo a scríobhadh de láimh don mhód taispeána.\nIs baile é Baile Átha Luain i lár na hÉireann. Tá an tSionainn ag sileadh tríd an mbaile.\nTá caisleán cáiliúil in aice leis an droichead. Tá stair fhada ag an mbaile.",
+    "deep": "Is sampla é seo a scríobhadh de láimh don mhód taispeána.\nIs baile é Baile Átha Luain i lár na hÉireann. Tá an tSionainn ag sileadh tríd an mbaile.\nTá caisleán cáiliúil in aice leis an droichead. Tá stair fhada ag an mbaile.\nTá teach tábhairne an-sean sa bhaile freisin. Tá ollscoil sa bhaile freisin."
+  },
+  "vocabulary": [
+    { "irish": "baile", "english": "town", "example": "Is baile beag é." },
+    { "irish": "abhainn", "english": "river", "example": "Tá an abhainn an-mhór." },
+    { "irish": "droichead", "english": "bridge", "example": "Tá droichead mór thar an abhainn." },
+    { "irish": "caisleán", "english": "castle", "example": "Tá an caisleán in aice leis an abhainn." },
+    { "irish": "stair", "english": "history", "example": "Tá stair fhada ag an mbaile." },
+    { "irish": "lár", "english": "centre, middle", "example": "Tá sé i lár na hÉireann." },
+    { "irish": "teach tábhairne", "english": "pub", "example": "Tá an teach tábhairne an-sean." },
+    { "irish": "ollscoil", "english": "university", "example": "Tá ollscoil sa bhaile." },
+    { "irish": "sean", "english": "old", "example": "Tá an teach seo an-sean." },
+    { "irish": "cáiliúil", "english": "famous", "example": "Is caisleán cáiliúil é." }
+  ],
+  "quiz": [
+    { "question": "What does \"droichead\" mean?", "options": ["bridge", "castle", "river"], "answer": "bridge" },
+    { "question": "What does \"abhainn\" mean?", "options": ["town", "river", "history"], "answer": "river" },
+    { "question": "What does \"caisleán\" mean?", "options": ["pub", "university", "castle"], "answer": "castle" },
+    { "question": "What does \"stair\" mean?", "options": ["history", "centre", "old"], "answer": "history" },
+    { "question": "What does \"ollscoil\" mean?", "options": ["famous", "university", "bridge"], "answer": "university" }
+  ]
+}

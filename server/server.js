@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import OpenAI from "openai";
 import { jsonrepair } from "jsonrepair";
+import { readFile } from "fs/promises";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -16,7 +17,7 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: "2mb" }));
 
-const openai = new OpenAI({
+const openai = process.env.DEMO_MODE === "1" ? null : new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
@@ -139,8 +140,18 @@ app.get("/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
+// DEMO_MODE=1 returns a saved, hand-written example response instead of calling
+// OpenAI, so the extension can be tried without an API key.
+const DEMO_MODE = process.env.DEMO_MODE === "1";
+const DEMO_RESPONSE_PATH = path.join(__dirname, "demo", "sample_response.json");
+
 app.post("/analyze", async (req, res) => {
   try {
+    if (DEMO_MODE) {
+      const demo = JSON.parse(await readFile(DEMO_RESPONSE_PATH, "utf-8"));
+      return res.json({ ...demo, _demo: true });
+    }
+
     const ip = req.ip || req.headers["x-forwarded-for"] || "unknown";
     if (isRateLimited(ip)) {
       return res.status(429).json({ error: "Too many requests. Try again later." });
@@ -193,7 +204,12 @@ ${content}
           { role: "user", content: prompt }
         ],
         temperature: 0.4,
-        max_tokens: 1200
+        // At the upper end of the lengths the prompt asks for (two 500-word deep
+        // summaries, two smart and two quick ones, up to 20 vocabulary items, 5 quiz
+        // questions) the answer is about 2,000 words. 1,200 tokens cut it off mid-JSON.
+        max_tokens: 4096,
+        // JSON mode: the API guarantees syntactically valid JSON
+        response_format: { type: "json_object" }
       };
 
       let lastError = null;
@@ -264,7 +280,7 @@ ${content}
 const PORT = Number(process.env.PORT || 3012);
 
 const server = app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}${DEMO_MODE ? " (DEMO_MODE)" : ""}`);
 });
 
 server.on("error", (err) => {

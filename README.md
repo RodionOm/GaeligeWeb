@@ -15,12 +15,21 @@ Built at an Irish-language hackathon at Dogpatch Labs, Dublin, in March 2026.
 
 ## How it works
 
-```
-web page ──► content.js ──► sidepanel.js ──► POST /analyze ──► server.js ──► gpt-4o-mini
-             reads title,     side panel      {title, headings,   validate,
-             h1–h3, <p>       (5 steps)        paragraphs}         repair, retry
-                                  ▲                                     │
-                                  └──────────── JSON ◄──────────────────┘
+```mermaid
+flowchart LR
+    W["Web page"] --> C["content.js<br/>title, h1-h3, paragraphs"]
+    C --> SP["Side panel<br/>sidepanel.js"]
+    SP -->|"POST /analyze"| S["server.js<br/>rate limit, 12,000 chars"]
+    S --> M["gpt-4o-mini<br/>JSON mode"]
+    M --> P{"Parses and<br/>validates?"}
+    P -->|"no, first try"| M
+    P -->|"no, twice"| E["Error to the panel"]
+    P -->|yes| Q{"Quiz present?"}
+    Q -->|no| FQ["Fallback quiz<br/>from vocabulary"]
+    Q -->|yes| R["JSON response"]
+    FQ --> R
+    R --> SP
+    SP --> X["escapeHtml, then render:<br/>summary, word cards, quiz"]
 ```
 
 | Part | File | What it does |
